@@ -14,7 +14,7 @@ import javax.swing.*;
  *
  * @author k1357811
  */
-public class CalculatorViewer extends JFrame
+public class CalculatorPanel extends JPanel
 {
     //JLabels
     private JLabel ageLabel;
@@ -36,79 +36,67 @@ public class CalculatorViewer extends JFrame
     private static ButtonGroup smokerButtonGroup;
     private static ButtonGroup diabetesButtonGroup;
     
-    //Button Panel
-    public CalculatorButtonPanel calculatorButtonPanel; 
-    
-    public CalculatorViewer()
+    public CalculatorPanel()
     {       
-        this.setTitle("Alpha Team CHD Risk Calculator");
-        
-        Container contentPane = this.getContentPane();
-        contentPane.setLayout(new GridLayout(8,3));
+        this.setLayout(new GridLayout(8,3));
 
-        ageLabel = new JLabel("Age:");
-        contentPane.add(ageLabel);
+        ageLabel = new JLabel("Age:");       
+        this.add(ageLabel);
         
         ageTextField = new JTextField();
-        contentPane.add(ageTextField);
+        this.add(ageTextField);
         
         JLabel emptyLabel1 = new JLabel("Years");
-        contentPane.add(emptyLabel1);
+        this.add(emptyLabel1);
         
         genderLabel = new JLabel("Gender:");
-        contentPane.add(genderLabel);
+        this.add(genderLabel);
         
         genderButtonGroup = new ButtonGroup();
         addRadioToGender("Male").setSelected(true);
         addRadioToGender("Female");
         
         totalCholesterolLabel = new JLabel("Total Cholesterol:");
-        contentPane.add(totalCholesterolLabel);
+        this.add(totalCholesterolLabel);
         
         totalCholesterolTextField = new JTextField();
-        contentPane.add(totalCholesterolTextField);
+        this.add(totalCholesterolTextField);
         
         JLabel emptyLabel2 = new JLabel("mg/dL");
-        contentPane.add(emptyLabel2);
+        this.add(emptyLabel2);
         
         hdlCholesterolLabel = new JLabel("HDL Cholesterol:");
-        contentPane.add(hdlCholesterolLabel);
+        this.add(hdlCholesterolLabel);
         
         hdlCholesterolTextField = new JTextField();
-        contentPane.add(hdlCholesterolTextField);
+        this.add(hdlCholesterolTextField);
         
         JLabel emptyLabel3 = new JLabel("mg/dL");
-        contentPane.add(emptyLabel3);
+        this.add(emptyLabel3);
         
         bloodPressureLabel = new JLabel("SYSTOLIC Blood Pressure:");
-        contentPane.add(bloodPressureLabel);
+        this.add(bloodPressureLabel);
         
         bloodPressureTextField = new JTextField();
-        contentPane.add(bloodPressureTextField);
+        this.add(bloodPressureTextField);
         
         JLabel emptyLabel4 = new JLabel("mm/Hg");
-        contentPane.add(emptyLabel4);
+        this.add(emptyLabel4);
         
         smokerLabel = new JLabel("Smoker:");
-        contentPane.add(smokerLabel);
+        this.add(smokerLabel);
         
         smokerButtonGroup = new ButtonGroup();
         addRadioToSmoker("Yes").setSelected(true);
         addRadioToSmoker("No");
         
         diabetesLabel = new JLabel("Diabetes:");
-        contentPane.add(diabetesLabel);
+        this.add(diabetesLabel);
         
         diabetesButtonGroup = new ButtonGroup();
         addRadioToDiabetes("Yes").setSelected(true);
         addRadioToDiabetes("No");
         
-        calculatorButtonPanel = new CalculatorButtonPanel();
-        this.add(calculatorButtonPanel, BorderLayout.SOUTH);
-        
-        this.pack();
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         this.setVisible(true);        
     }
     
@@ -211,29 +199,94 @@ public class CalculatorViewer extends JFrame
     
     public static int getAge()
     {
-        int age = Integer.parseInt(ageTextField.getText());
+        int age = 0;
+        if(ageTextField.getText() != null)
+        {
+            try
+            {
+                age = Integer.parseInt(ageTextField.getText());
+                if(age < 30 || 74 < age)
+                {
+                    System.out.println("Please enter age between 30 and 74.");
+                    age = 0;
+                }
+            }
+            catch(Exception e)
+            {
+                System.err.println(e.getMessage());
+            }
+        }
+        else
+        {
+            System.out.println("Please enter age.");
+        }
         return age;
     }
     
     public static double getTotalCholesterol()
     {
-        double totalCholesterol = Double.parseDouble(totalCholesterolTextField.getText());
+        double totalCholesterol = 0;
+        if(totalCholesterolTextField.getText() != null)
+        {
+            try
+            {
+                totalCholesterol = Double.parseDouble(totalCholesterolTextField.getText());
+            }
+            catch(Exception e)
+            {
+                System.err.println(e.getMessage());
+            }
+        }
+        else
+        {
+            System.out.println("Please enter total cholesterol.");
+        }
         return totalCholesterol;
     }
     
     public static double getHDLCholesterol()
     {
-        double hdlCholesterol = Double.parseDouble(hdlCholesterolTextField.getText());
+        double hdlCholesterol = 0;
+        if(hdlCholesterolTextField.getText() != null)
+        {
+            try
+            {
+                hdlCholesterol = Double.parseDouble(hdlCholesterolTextField.getText());
+            }
+            catch(Exception e)
+            {
+                System.err.println(e.getMessage());
+            }
+        }
+        else
+        {
+            System.out.println("Please enter HDL cholesterol.");
+        }
         return hdlCholesterol;
     }
     
     public static double getBloodPressure()
     {
-        double bloodPressure = Double.parseDouble(bloodPressureTextField.getText());
+        double bloodPressure = 0;
+        if(bloodPressureTextField.getText() != null)
+        {
+            try
+            {
+                bloodPressure = Double.parseDouble(bloodPressureTextField.getText());
+            }
+            catch(Exception e)
+            {
+                System.err.println(e.getMessage());
+            }
+        }
+        else
+        {
+            System.out.println("Please enter blood pressure.");
+        }
         return bloodPressure;
     }
     
-    //Method to re-initilise form.
+    //Method to re-initialise form.
     public static void clear()
     {
         ageTextField.setText("");

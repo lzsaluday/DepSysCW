@@ -5,7 +5,7 @@
  */
 package View;
 
-import depsyscw.CalculatorControl;
+import controller.CalculatorControl;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -16,23 +16,23 @@ import javax.swing.JPanel;
  */
 public class WelcomeButtonPanel extends JPanel
 {
-    private static JButton calculatorButton = new JButton("Calculate your CVD risk");
-    private static JButton logInButton = new JButton("Load User Profile");
+    private static JButton registerButton = new JButton("Register");
+    private static JButton logInButton = new JButton("Log In");
     
     public WelcomeButtonPanel()
     {
         this.setLayout(new GridLayout(1,2));
         
-        this.add(calculatorButton);
-        calculatorButton.addActionListener(new CalculatorControl());
+        this.add(registerButton);
+        registerButton.addActionListener(new CalculatorControl());
         
         this.add(logInButton);
         logInButton.addActionListener(new CalculatorControl());
     }
     
-    public static JButton getCalculatorButton()
+    public static JButton getRegisterButton()
     {
-        return calculatorButton;
+        return registerButton;
     }
     
     public static JButton getLogInButton()

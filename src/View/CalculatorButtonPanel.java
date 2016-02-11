@@ -5,7 +5,7 @@
  */
 package View;
 
-import depsyscw.CalculatorControl;
+import controller.CalculatorControl;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;

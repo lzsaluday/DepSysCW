@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package depsyscw;
+package controller;
 
 import View.*;
 import java.awt.event.*;
@@ -15,54 +15,57 @@ import javax.swing.JOptionPane;
  */
 public class CalculatorControl implements ActionListener
 {
-    public CalculatorViewer calculatorViewer;
+    public CalculatorPanel calculatorViewer;
     
     @Override
     public void actionPerformed(ActionEvent event) 
     {
-        if(event.getSource() == WelcomeButtonPanel.getCalculatorButton())
+        if(event.getSource() == WelcomeButtonPanel.getRegisterButton())
         {
-            calculatorViewer = new CalculatorViewer();
+            calculatorViewer = new CalculatorPanel();
         }
         if(event.getSource() == WelcomeButtonPanel.getLogInButton())
         {
-            FileLoader fileLoader = new FileLoader();                    
+            LogInPanel logInPanel = new LogInPanel();
+            ApplicationFrame.changePanel(logInPanel);
         }
         if(event.getSource() == CalculatorButtonPanel.getCalculateButton())
         {          
-            boolean gender = CalculatorViewer.getGender();
-            int age = CalculatorViewer.getAge();
-            double totalCholesterol = CalculatorViewer.getTotalCholesterol();
-            double hdlCholesterol = CalculatorViewer.getHDLCholesterol();
-            double bloodPressure = CalculatorViewer.getBloodPressure();
-            boolean diabetes = CalculatorViewer.getDiabetes();
-            boolean smoker = CalculatorViewer.getSmoker();
+            boolean gender = CalculatorPanel.getGender();
+            int age = CalculatorPanel.getAge();
+            double totalCholesterol = CalculatorPanel.getTotalCholesterol();
+            double hdlCholesterol = CalculatorPanel.getHDLCholesterol();
+            double bloodPressure = CalculatorPanel.getBloodPressure();
+            boolean diabetes = CalculatorPanel.getDiabetes();
+            boolean smoker = CalculatorPanel.getSmoker();
             int cholPoints = calculateCholPoints(gender, age, totalCholesterol, 
                     hdlCholesterol, bloodPressure, diabetes, smoker);
-//            int response = JOptionPane.showConfirmDialog(calculatorViewer, 
-//                    "Your CHD risk for the next 10 years is:\n" 
-//                    + " %\n"
-//                    + "Would you like to save your result?",
-//                    "Save",
-//                    JOptionPane.YES_NO_OPTION,
-//                    JOptionPane.QUESTION_MESSAGE);
-//            if (response == JOptionPane.NO_OPTION) 
-//            {
-//                System.out.println("No button clicked");
-//            } 
-//            else if (response == JOptionPane.YES_OPTION) 
-//            {
-//                System.out.println("Yes button clicked");
-//            } 
-//            else if (response == JOptionPane.CLOSED_OPTION) 
-//            {
-//                System.out.println("JOptionPane closed");
-//            }
-//            CalculatorViewer.clear();
+            String chdRisk = calculateCHDRisk(gender, cholPoints);
+                    
+            int response = JOptionPane.showConfirmDialog(calculatorViewer, 
+                    "Calculation result:\n" 
+                    + chdRisk + " for the next 10 years \n"
+                    + "Would you like to save your result?",
+                    "Save",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+            if (response == JOptionPane.NO_OPTION) 
+            {
+                System.out.println("No button clicked");
+            } 
+            else if (response == JOptionPane.YES_OPTION) 
+            {
+                System.out.println("Yes button clicked");
+            } 
+            else if (response == JOptionPane.CLOSED_OPTION) 
+            {
+                System.out.println("JOptionPane closed");
+            }
+            CalculatorPanel.clear();
         }
         if(event.getSource() == CalculatorButtonPanel.getCancelButton())
         {
-            CalculatorViewer.clear();
+            CalculatorPanel.clear();
         }
     }
     
@@ -114,45 +117,45 @@ public class CalculatorControl implements ActionListener
             }
             
             //Total Cholesterol
-            if(totalCholesterol < 160 | totalCholesterol < 4.15)
+            if(totalCholesterol < 160)
             {
                 points = points - 3;
             }
-            else if(totalCholesterol < 200 | totalCholesterol < 5.18)
+            else if(totalCholesterol < 200)
             {
                 points = points + 0;
             }
-            else if(totalCholesterol < 240 | totalCholesterol < 6.22)
+            else if(totalCholesterol < 240)
             {
                 points = points + 1;
             }
-            else if(totalCholesterol < 280 | totalCholesterol < 7.25)
+            else if(totalCholesterol < 280)
             {
                 points = points + 2;
             }
-            else if(280 <= totalCholesterol | 7.25 <= totalCholesterol)
+            else if(280 <= totalCholesterol)
             {
                 points = points + 3;
             }
             
             //HDL Cholesterol
-            if(hdlCholesterol < 35 | hdlCholesterol < 0.9)
+            if(hdlCholesterol < 35)
             {
                 points = points + 2;
             }
-            else if(hdlCholesterol < 45 | hdlCholesterol < 1.17)
+            else if(hdlCholesterol < 45)
             {
                 points = points + 1;
             }
-            else if(hdlCholesterol < 50 | hdlCholesterol < 1.3)
+            else if(hdlCholesterol < 50)
             {
                 points = points + 0;
             }
-            else if(hdlCholesterol < 60 | hdlCholesterol < 1.56)
+            else if(hdlCholesterol < 60)
             {
                 points = points + 0;
             }
-            else if(60 <= hdlCholesterol | 1.56 <= hdlCholesterol)
+            else if(60 <= hdlCholesterol)
             {
                 points = points - 2;
             }
@@ -241,45 +244,45 @@ public class CalculatorControl implements ActionListener
             }
             
             //Total Cholesterol
-            if(totalCholesterol < 160 | totalCholesterol < 4.15)
+            if(totalCholesterol < 160)
             {
                 points = points - 2;
             }
-            else if(totalCholesterol < 200 | totalCholesterol < 5.18)
+            else if(totalCholesterol < 200)
             {
                 points = points + 0;
             }
-            else if(totalCholesterol < 240 | totalCholesterol < 6.22)
+            else if(totalCholesterol < 240)
             {
                 points = points + 1;
             }
-            else if(totalCholesterol < 280 | totalCholesterol < 7.25)
+            else if(totalCholesterol < 280)
             {
                 points = points + 1;
             }
-            else if(280 <= totalCholesterol | 7.25 <= totalCholesterol)
+            else if(280 <= totalCholesterol)
             {
                 points = points + 3;
             }
             
             //HDL Cholesterol
-            if(hdlCholesterol < 35 | hdlCholesterol < 0.9)
+            if(hdlCholesterol < 35)
             {
                 points = points + 5;
             }
-            else if(hdlCholesterol < 45 | hdlCholesterol < 1.17)
+            else if(hdlCholesterol < 45)
             {
                 points = points + 2;
             }
-            else if(hdlCholesterol < 50 | hdlCholesterol < 1.3)
+            else if(hdlCholesterol < 50)
             {
                 points = points + 1;
             }
-            else if(hdlCholesterol < 60 | hdlCholesterol < 1.56)
+            else if(hdlCholesterol < 60)
             {
                 points = points + 0;
             }
-            else if(60 <= hdlCholesterol | 1.56 <= hdlCholesterol)
+            else if(60 <= hdlCholesterol)
             {
                 points = points - 3;
             }
@@ -333,76 +336,157 @@ public class CalculatorControl implements ActionListener
     public String calculateCHDRisk(boolean gender, int cholPoints)
     {
         String chdRisk = null;
+        //Male
         if(gender)
         {
-            if(1 <= cholPoints)
+            if(cholPoints <= -1)
             {
-                chdRisk = "2%";
+                chdRisk = "CHD risk = 2%";
             }
             else if(cholPoints == 0)
             {
-                chdRisk = "3%";
+                chdRisk = "CHD risk = 3%";
             }
-            else if(cholPoints == 0)
+            else if(cholPoints == 1)
             {
-                chdRisk = "3%";
+                chdRisk = "CHD risk = 3%";
             }
-            else if(cholPoints == 0)
+            else if(cholPoints == 2)
             {
-                chdRisk = "3%";
+                chdRisk = "CHD risk = 4%";
             }
-            else if(cholPoints == 0)
+            else if(cholPoints == 3)
             {
-                chdRisk = "3%";
+                chdRisk = "CHD risk = 5%";
             }
-            else if(cholPoints == 0)
+            else if(cholPoints == 4)
             {
-                chdRisk = "3%";
+                chdRisk = "CHD risk = 7%";
             }
-            else if(cholPoints == 0)
+            else if(cholPoints == 5)
             {
-                chdRisk = "3%";
+                chdRisk = "CHD risk = 8%";
             }
-            else if(cholPoints == 0)
+            else if(cholPoints == 6)
             {
-                chdRisk = "3%";
+                chdRisk = "CHD risk = 10%";
             }
-            else if(cholPoints == 0)
+            else if(cholPoints == 7)
             {
-                chdRisk = "3%";
+                chdRisk = "CHD risk = 13%";
             }
-            else if(cholPoints == 0)
+            else if(cholPoints == 8)
             {
-                chdRisk = "3%";
+                chdRisk = "CHD risk = 16%";
             }
-            else if(cholPoints == 0)
+            else if(cholPoints == 9)
             {
-                chdRisk = "3%";
+                chdRisk = "CHD risk = 20%";
             }
-            else if(cholPoints == 0)
+            else if(cholPoints == 10)
             {
-                chdRisk = "3%";
+                chdRisk = "CHD risk = 25%";
             }
-            else if(cholPoints == 0)
+            else if(cholPoints == 11)
             {
-                chdRisk = "3%";
+                chdRisk = "CHD risk = 31%";
             }
-            else if(cholPoints == 0)
+            else if(cholPoints == 12)
             {
-                chdRisk = "3%";
+                chdRisk = "CHD risk = 37%";
             }
-            else if(cholPoints == 0)
+            else if(cholPoints == 13)
             {
-                chdRisk = "3%";
+                chdRisk = "CHD risk = 45%";
             }
-            else if(cholPoints == 0)
+            else if(14 <= cholPoints)
             {
-                chdRisk = "3%";
+                chdRisk = "53% <= CHD risk";
             }
         }
+        //Female
         else
         {
-            
+            if(cholPoints <= -2)
+            {
+                chdRisk = "CHD risk = 1%";
+            }
+            else if(cholPoints == -1)
+            {
+                chdRisk = "CHD risk = 2%";
+            }
+            else if(cholPoints == 0)
+            {
+                chdRisk = "CHD risk = 2%";
+            }
+            else if(cholPoints == 1)
+            {
+                chdRisk = "CHD risk = 2%";
+            }
+            else if(cholPoints == 2)
+            {
+                chdRisk = "CHD risk = 3%";
+            }
+            else if(cholPoints == 3)
+            {
+                chdRisk = "CHD risk = 3%";
+            }
+            else if(cholPoints == 4)
+            {
+                chdRisk = "CHD risk = 4%";
+            }
+            else if(cholPoints == 5)
+            {
+                chdRisk = "CHD risk = 4%";
+            }
+            else if(cholPoints == 6)
+            {
+                chdRisk = "CHD risk = 5%";
+            }
+            else if(cholPoints == 7)
+            {
+                chdRisk = "CHD risk = 6%";
+            }
+            else if(cholPoints == 8)
+            {
+                chdRisk = "CHD risk = 7%";
+            }
+            else if(cholPoints == 9)
+            {
+                chdRisk = "CHD risk = 8%";
+            }
+            else if(cholPoints == 10)
+            {
+                chdRisk = "CHD risk = 10%";
+            }
+            else if(cholPoints == 11)
+            {
+                chdRisk = "CHD risk = 11%";
+            }
+            else if(cholPoints == 12)
+            {
+                chdRisk = "CHD risk = 13%";
+            }
+            else if(cholPoints == 13)
+            {
+                chdRisk = "CHD risk = 15%";
+            }
+            else if(cholPoints == 14)
+            {
+                chdRisk = "CHD risk = 18%";
+            }
+            else if(cholPoints == 15)
+            {
+                chdRisk = "CHD risk = 20%";
+            }
+            else if(cholPoints == 16)
+            {
+                chdRisk = "CHD risk = 24%";
+            }
+            else if(17 <= cholPoints)
+            {
+                chdRisk = "27% <= CHD risk";
+            }
         }
         return chdRisk;
     }
