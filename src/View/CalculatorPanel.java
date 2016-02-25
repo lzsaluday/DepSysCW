@@ -53,8 +53,8 @@ public class CalculatorPanel extends JPanel
         this.add(genderLabel);
         
         genderButtonGroup = new ButtonGroup();
-        addRadioToGender("Male").setSelected(true);
-        addRadioToGender("Female");
+        addRadioToGroup(genderButtonGroup, "Male").setSelected(true);
+        addRadioToGroup(genderButtonGroup, "Female");
         
         totalCholesterolLabel = new JLabel("Total Cholesterol:");
         this.add(totalCholesterolLabel);
@@ -87,43 +87,27 @@ public class CalculatorPanel extends JPanel
         this.add(smokerLabel);
         
         smokerButtonGroup = new ButtonGroup();
-        addRadioToSmoker("Yes").setSelected(true);
-        addRadioToSmoker("No");
+        addRadioToGroup(smokerButtonGroup, "Yes").setSelected(true);
+        addRadioToGroup(smokerButtonGroup, "No");
         
         diabetesLabel = new JLabel("Diabetes:");
         this.add(diabetesLabel);
         
         diabetesButtonGroup = new ButtonGroup();
-        addRadioToDiabetes("Yes").setSelected(true);
-        addRadioToDiabetes("No");
+        addRadioToGroup(diabetesButtonGroup, "Yes").setSelected(true);
+        addRadioToGroup(diabetesButtonGroup, "No");
         
         this.setVisible(true);        
     }
     
-    private JRadioButton addRadioToGender(String text) 
+    private JRadioButton addRadioToGroup(ButtonGroup group, String text) 
     {
         JRadioButton b = new JRadioButton(text);
-        genderButtonGroup.add(b);
+        group.add(b);
         add(b);
         return b;
     }
-    
-    private JRadioButton addRadioToSmoker(String text) 
-    {
-        JRadioButton b = new JRadioButton(text);
-        smokerButtonGroup.add(b);
-        add(b);
-        return b;
-    }
-    
-    private JRadioButton addRadioToDiabetes(String text) 
-    {
-        JRadioButton b = new JRadioButton(text);
-        diabetesButtonGroup.add(b);
-        add(b);
-        return b;
-    }
-    
+
     //Method to return the selected radioButton values.
     public static String getSelectedButtonText(ButtonGroup buttonGroup) 
     {

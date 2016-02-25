@@ -8,6 +8,7 @@ package controller;
 import View.*;
 import java.awt.event.*;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -26,8 +27,8 @@ public class CalculatorControl implements ActionListener
         }
         if(event.getSource() == WelcomeButtonPanel.getLogInButton())
         {
-            LogInPanel logInPanel = new LogInPanel();
-            ApplicationFrame.changePanel(logInPanel);
+//            LogInPanel logInPanel = new LogInPanel();
+//            ApplicationFrame.changePanel(logInPanel);
         }
         if(event.getSource() == CalculatorButtonPanel.getCalculateButton())
         {          
